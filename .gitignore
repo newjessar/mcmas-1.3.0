@@ -1,0 +1,31 @@
+# Build artifacts
+*.o
+*.a
+*.so
+*.dylib
+cudd-2.5.0-exp/obj/
+
+# macOS
+.DS_Store
+._*
+
+# Build directories
+MCMAS-Essential/Source/build/
+MCMAS-Essential/dmg-temp/
+
+# Temporary files
+*.tmp
+*.log
+/var/
+*.txt
+mcmas_output_*.txt
+
+# Xcode
+*.xcodeproj
+*.xcworkspace
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+DerivedData/
