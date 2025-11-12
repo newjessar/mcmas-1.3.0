@@ -39,6 +39,11 @@ To change, edit these lines in MCMAS.swift:
 
 ## Known Issues
 
-The app has a 30-second timeout per file to prevent hangs. This is necessary for:
+The app has a 10-second timeout per file to prevent hangs (reduced from 30s in v2.1). This is necessary for:
 - go_back_n.ispl (state space explosion)
 - Any other computationally intensive models
+
+## Version History
+
+- **Version 2.2**: Performance optimizations (CPU usage, verification speed, timeout reduction)
+- **Version 2.1**: Critical bug fix in MCMAS source code
