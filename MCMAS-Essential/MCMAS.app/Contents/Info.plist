@@ -15,9 +15,9 @@
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>2.0</string>
+    <string>2.1</string>
     <key>CFBundleVersion</key>
-    <string>2.0</string>
+    <string>2.1</string>
     <key>LSMinimumSystemVersion</key>
     <string>12.0</string>
     <key>NSHighResolutionCapable</key>
@@ -25,7 +25,7 @@
     <key>LSApplicationCategoryType</key>
     <string>public.app-category.developer-tools</string>
     <key>NSHumanReadableCopyright</key>
-    <string>Copyright © 2007-2025 Imperial College London</string>
+    <string>Copyright © 2025 Jay Kahl. GUI Version 2.1 based on MCMAS 1.3.0 by Imperial College London.</string>
     <key>NSPrincipalClass</key>
     <string>NSApplication</string>
 </dict>

@@ -3,7 +3,7 @@
 //  MCMAS Model Checker - GUI Application
 //
 //  Copyright © 2025 Jay Kahl
-//  Version 2.0
+//  Version 2.1
 //
 //  This GUI application is an independent wrapper for MCMAS (Multi-Agent Systems Model Checker).
 //  Provided for PERSONAL AND EDUCATIONAL USE ONLY.
@@ -14,7 +14,7 @@
 //  Original MCMAS developed by Alessio Lomuscio and colleagues at Imperial College London.
 //  This GUI is NOT affiliated with or endorsed by the original MCMAS developers.
 //
-//  Version 2.0 includes a critical bug fix in the MCMAS source code (modal_formula.cc case 48).
+//  Version 2.1 includes a critical bug fix in the MCMAS source code (modal_formula.cc case 48).
 //
 
 import SwiftUI
@@ -652,7 +652,7 @@ struct DisclaimerView: View {
                 .font(.title)
                 .fontWeight(.bold)
             
-            Text("GUI Version 2.0 (Based on MCMAS 1.3.0)")
+            Text("GUI Version 2.1 (Based on MCMAS 1.3.0)")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
             
@@ -670,14 +670,14 @@ struct DisclaimerView: View {
                     This GUI application is an independent wrapper for MCMAS and is provided for \
                     PERSONAL AND EDUCATIONAL USE ONLY.
                     
-                    Version 2.0 - Critical Bug Fix Release
+                    Version 2.1 - Critical Bug Fix Release
                     """)
                     .font(.system(size: 12))
                     .foregroundColor(.secondary)
                     
                     Divider()
                     
-                    Text("VERSION 2.0 - CRITICAL BUG FIX")
+                    Text("VERSION 2.1 - CRITICAL BUG FIX")
                         .font(.headline)
                         .fontWeight(.bold)
                     
