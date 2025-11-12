@@ -1,11 +1,13 @@
 # MCMAS - Multi-Agent Model Checker
 
-**Version 2.0** - Enhanced for Apple Silicon with Native macOS GUI
+![MCMAS App Icon](MCMAS-Essential/apple_mcmas.png)
+
+**Version 2.1** - Enhanced for Apple Silicon with Native macOS GUI
 
 Copyright © 2025 Jay Kahl  
 Original MCMAS developed by Alessio Lomuscio et al. at Imperial College London
 
-## What's New in Version 2.0
+## What's New in Version 2.1
 
 - ✅ **Native Apple Silicon Support** - Compiled for M1/M2/M3 Macs
 - ✅ **Modern SwiftUI Interface** - Clean, native macOS application
@@ -16,7 +18,7 @@ Original MCMAS developed by Alessio Lomuscio et al. at Imperial College London
 ## Requirements
 
 - **macOS**: 12.0 (Monterey) or later
-- **Hardware**: Apple Silicon (M1/M2/M3)
+- **Hardware**: Apple Silicon (M1/M2/M3/M4)
 - **Dependencies**: None (all system frameworks)
 
 ## Installation
