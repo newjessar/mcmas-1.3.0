@@ -9,24 +9,23 @@ Original MCMAS developed by Alessio Lomuscio et al. at Imperial College London
 
 ## What's New in Version 2.3
 
-**Major Performance Optimizations:**
-- ✅ **Idle CPU reduced from 5-15% to 0.0-0.1%** - Removed constant file monitoring
-- ✅ **Verification speed 100x+ faster** - Simple files complete in ~0.01s (was 4+ seconds)
-- ✅ **Faster timeout (10 seconds)** - Reduced from 30 seconds for quicker batch processing
-- ✅ **Eliminated UI lag** - Optimized view rendering and state management
-- ✅ **Smoother responsiveness** - No more delays when selecting files or viewing output
+**UI Enhancements & Fixes:**
+- ✅ **Fixed disclaimer behavior** - Now shows only once on first app launch, not per tab
+- ✅ **Added info banner** - Permanent attribution and contact info in left panel
+- ✅ **File menu added** - Quick access to folder operations (Choose/Open Models Folder)
+- ✅ **Clickable file rows** - Click anywhere on a file row to select/deselect
+- ✅ **Tab improvements** - Better tab bar visibility and independent tab states
+- ✅ **Version display** - Shows "MCMAS GUI v2.3" in the interface
+
+**Previous Release (Version 2.2):**
+- Idle CPU usage reduced from 5-15% to 0.0-0.1%
+- Verification speed increased 100x+ (4+ seconds → ~0.01s)
+- Faster timeout (10 seconds, down from 30)
 
 **Previous Release (Version 2.1):**
-- ✅ **Critical Bug Fix** - Fixed random crash bug in modal_formula.cc (case 48)
-- ✅ **100% Reliability** - Stable verification with safety timeout protection
-
-## What's New in Version 2.1 (Previous Release)
-
-- ✅ **Native Apple Silicon Support** - Compiled for M1/M2/M3/M4 Macs
-- ✅ **Modern SwiftUI Interface** - Clean, native macOS application
-- ✅ **Critical Bug Fix** - Fixed random crash bug in modal_formula.cc (case 48)
-- ✅ **100% Reliability** - Stable verification with safety timeout protection
-- ✅ **Bundled Resources** - Fully portable with included example models
+- Fixed critical MCMAS 1.3.0 bug causing random crashes
+- Native Apple Silicon support (M1/M2/M3/M4)
+- Modern SwiftUI interface
 
 ## Requirements
 
