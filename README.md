@@ -2,12 +2,12 @@
 
 ![MCMAS App Icon](MCMAS-Essential/apple_mcmas.png)
 
-**Version 2.2** - Enhanced for Apple Silicon with Native macOS GUI
+**Version 2.3** - Enhanced for Apple Silicon with Native macOS GUI
 
 Copyright © 2025 Jay Kahl  
 Original MCMAS developed by Alessio Lomuscio et al. at Imperial College London
 
-## What's New in Version 2.2
+## What's New in Version 2.3
 
 **Major Performance Optimizations:**
 - ✅ **Idle CPU reduced from 5-15% to 0.0-0.1%** - Removed constant file monitoring
@@ -22,7 +22,7 @@ Original MCMAS developed by Alessio Lomuscio et al. at Imperial College London
 
 ## What's New in Version 2.1 (Previous Release)
 
-- ✅ **Native Apple Silicon Support** - Compiled for M1/M2/M3 Macs
+- ✅ **Native Apple Silicon Support** - Compiled for M1/M2/M3/M4 Macs
 - ✅ **Modern SwiftUI Interface** - Clean, native macOS application
 - ✅ **Critical Bug Fix** - Fixed random crash bug in modal_formula.cc (case 48)
 - ✅ **100% Reliability** - Stable verification with safety timeout protection
@@ -88,6 +88,7 @@ Personal and educational use only. No warranty provided. See full disclaimer in 
 ## Credits
 
 - **Original MCMAS**: Alessio Lomuscio, Hongyang Qu, Franco Raimondi
+- **Version 2.3 Enhancement**: Jay Kahl (UI improvements, File menu, info banner)
 - **Version 2.2 Enhancement**: Jay Kahl (Performance optimizations)
 - **Version 2.1 Enhancement**: Jay Kahl (M1 compilation, GUI, bug fix)
 - **CUDD Library**: Fabio Somenzi, University of Colorado Boulder

@@ -3,7 +3,7 @@
 //  MCMAS Model Checker - GUI Application
 //
 //  Copyright © 2025 Jay Kahl
-//  Version 2.2
+//  Version 2.3
 //
 //  This GUI application is an independent wrapper for MCMAS (Multi-Agent Systems Model Checker).
 //  Provided for PERSONAL AND EDUCATIONAL USE ONLY.
@@ -14,7 +14,7 @@
 //  Original MCMAS developed by Alessio Lomuscio and colleagues at Imperial College London.
 //  This GUI is NOT affiliated with or endorsed by the original MCMAS developers.
 //
-//  Version 2.2 includes critical performance optimizations for GUI responsiveness and verification speed.
+//  Version 2.3 includes UI improvements: disclaimer fix, info banner, File menu, and tab behavior.
 //
 
 import SwiftUI
@@ -181,6 +181,15 @@ class MCMASViewModel: ObservableObject {
         for index in files.indices {
             files[index].isSelected = false
             // Clear status and output when deselecting all
+            files[index].status = .pending
+            files[index].output = ""
+        }
+    }
+    
+    func clearOutput() {
+        verificationOutput = ""
+        // Also clear individual file statuses and outputs
+        for index in files.indices {
             files[index].status = .pending
             files[index].output = ""
         }
@@ -420,7 +429,10 @@ struct SelectableText: NSViewRepresentable {
 }
 
 struct ContentView: View {
-    @EnvironmentObject var viewModel: MCMASViewModel
+    @StateObject private var viewModel = MCMASViewModel()
+    @AppStorage("hasShownTabBar") private var hasShownTabBar = false
+    @Binding var triggerChooseFolder: Bool
+    @Binding var triggerOpenFolder: Bool
     
     var body: some View {
         HSplitView {
@@ -437,6 +449,31 @@ struct ContentView: View {
                 }
                 .padding()
                 .background(Color(NSColor.controlBackgroundColor))
+                
+                // Info Banner
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("MCMAS GUI v2.3 - Multi-Agent Systems Model Checker")
+                        .font(.system(size: 10, weight: .semibold))
+                        .foregroundColor(.primary)
+                    
+                    Text("MCMAS © Imperial College London")
+                        .font(.system(size: 9))
+                        .foregroundColor(.secondary)
+                    
+                    Text("GUI by Jay Kahl, Utrecht University")
+                        .font(.system(size: 9))
+                        .foregroundColor(.secondary)
+                    
+                    Text("Issues? github.com/newjessar • Personal/Educational Use Only")
+                        .font(.system(size: 8))
+                        .foregroundColor(.secondary)
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(NSColor.controlBackgroundColor).opacity(0.5))
+                
+                Divider()
                 
                 // Error message if any
                 if !viewModel.errorMessage.isEmpty {
@@ -464,6 +501,14 @@ struct ContentView: View {
                             Label("Deselect", systemImage: "square")
                         }
                         .buttonStyle(.bordered)
+                        
+                        Spacer()
+                        
+                        Button(action: viewModel.loadFiles) {
+                            Label("Refresh", systemImage: "arrow.clockwise")
+                        }
+                        .buttonStyle(.bordered)
+                        .help("Reload file list from Models folder")
                     }
                 }
                 .padding()
@@ -510,6 +555,14 @@ struct ContentView: View {
                 // Verify Button - Compact at bottom
                 HStack {
                     Spacer()
+                    
+                    Button(action: viewModel.clearOutput) {
+                        Label("Clear Results", systemImage: "trash")
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.large)
+                    .disabled(viewModel.verificationOutput.isEmpty)
+                    
                     Button(action: viewModel.verifySelected) {
                         Label("Verify Selected", systemImage: "play.fill")
                             .font(.headline)
@@ -517,6 +570,7 @@ struct ContentView: View {
                     .buttonStyle(.borderedProminent)
                     .controlSize(.large)
                     .disabled(!viewModel.hasSelectedFiles || viewModel.isVerifying)
+                    
                     Spacer()
                 }
                 .padding(.vertical, 8)
@@ -525,6 +579,41 @@ struct ContentView: View {
             }
         }
         .frame(minWidth: 1280, minHeight: 820)
+        .onChange(of: triggerChooseFolder) { shouldTrigger in
+            if shouldTrigger {
+                viewModel.chooseModelsFolder()
+                DispatchQueue.main.async {
+                    triggerChooseFolder = false
+                }
+            }
+        }
+        .onChange(of: triggerOpenFolder) { shouldTrigger in
+            if shouldTrigger {
+                viewModel.openModelsFolder()
+                DispatchQueue.main.async {
+                    triggerOpenFolder = false
+                }
+            }
+        }
+        .onAppear {
+            // Show tab bar on first launch only
+            if !hasShownTabBar {
+                DispatchQueue.main.async {
+                    if let window = NSApp.windows.first(where: { $0.isVisible }) {
+                        window.tabbingMode = .preferred
+                        window.toggleTabBar(nil)
+                        hasShownTabBar = true
+                    }
+                }
+            } else {
+                // Just ensure tabbingMode is set for subsequent windows
+                DispatchQueue.main.async {
+                    if let window = NSApp.windows.first(where: { $0.isVisible }) {
+                        window.tabbingMode = .preferred
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -567,6 +656,9 @@ struct FileRow: View {
         }
         .padding(.vertical, 4)
         .contentShape(Rectangle())
+        .onTapGesture {
+            viewModel.toggleSelection(for: file)
+        }
         .contextMenu {
             Button("Edit File") {
                 viewModel.editFile(file)
@@ -583,46 +675,55 @@ struct FileRow: View {
 @main
 struct MCMASApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @StateObject private var viewModel = MCMASViewModel()
     @AppStorage("hasAcceptedDisclaimer") private var hasAcceptedDisclaimer = false
     @State private var showingDisclaimer = false
+    @State private var triggerChooseFolder = false
+    @State private var triggerOpenFolder = false
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(
+                triggerChooseFolder: $triggerChooseFolder,
+                triggerOpenFolder: $triggerOpenFolder
+            )
                 .frame(minWidth: 1280, minHeight: 820)
-                .environmentObject(viewModel)
                 .sheet(isPresented: $showingDisclaimer) {
                     DisclaimerView(isPresented: $showingDisclaimer, hasAccepted: $hasAcceptedDisclaimer)
                 }
                 .onAppear {
-                    // Show disclaimer every time the app launches
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        showingDisclaimer = true
+                    // Show disclaimer only if not previously accepted
+                    if !hasAcceptedDisclaimer {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            showingDisclaimer = true
+                        }
                     }
                 }
         }
         .windowStyle(.titleBar)
+        .defaultSize(width: 1280, height: 820)
         .commands {
             CommandGroup(replacing: .newItem) { }
+            
+            // File menu
+            CommandGroup(after: .newItem) {
+                Button("Choose Models Folder...") {
+                    triggerChooseFolder = true
+                }
+                .keyboardShortcut("o", modifiers: [.command, .shift])
+                
+                Button("Open Models Folder") {
+                    triggerOpenFolder = true
+                }
+                .keyboardShortcut("o", modifiers: [.command, .option])
+                
+                Divider()
+            }
             
             // Settings menu
             CommandGroup(after: .appInfo) {
                 Button("Disclaimer & License") {
                     showingDisclaimer = true
                 }
-                
-                Divider()
-                
-                Button("Choose Models Folder...") {
-                    viewModel.chooseModelsFolder()
-                }
-                .keyboardShortcut(",", modifiers: .command)
-                
-                Button("Open Models Folder in Finder") {
-                    viewModel.openModelsFolder()
-                }
-                .keyboardShortcut("o", modifiers: [.command, .shift])
                 
                 Divider()
             }
@@ -640,7 +741,7 @@ struct DisclaimerView: View {
                 .font(.title)
                 .fontWeight(.bold)
             
-            Text("GUI Version 2.2 (Based on MCMAS 1.3.0)")
+            Text("GUI Version 2.3 (Based on MCMAS 1.3.0)")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
             
@@ -658,14 +759,14 @@ struct DisclaimerView: View {
                     This GUI application is an independent wrapper for MCMAS and is provided for \
                     PERSONAL AND EDUCATIONAL USE ONLY.
                     
-                    Version 2.2 - Performance Optimization Release
+                    Version 2.3 - UI Enhancement Release
                     """)
                     .font(.system(size: 12))
                     .foregroundColor(.secondary)
                     
                     Divider()
                     
-                    Text("VERSION 2.2 - PERFORMANCE OPTIMIZATIONS")
+                    Text("VERSION 2.3 - PERFORMANCE OPTIMIZATIONS")
                         .font(.headline)
                         .fontWeight(.bold)
                     
@@ -784,6 +885,7 @@ struct DisclaimerView: View {
                 .controlSize(.large)
                 
                 Button("Accept & Continue") {
+                    hasAccepted = true
                     isPresented = false
                 }
                 .keyboardShortcut(.defaultAction)

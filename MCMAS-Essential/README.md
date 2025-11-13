@@ -1,16 +1,19 @@
-# MCMAS GUI Application - Version 2.2
+# MCMAS GUI Application - Version 2.3
 
-## What's New in Version 2.2 🚀
+## What's New in Version 2.3 🎨
 
-**Major Performance Optimizations:**
-- ✅ **Idle CPU usage reduced from 5-15% to 0.0-0.1%** - Removed constant file monitoring
-- ✅ **Verification speed increased 100x+** - Simple files now complete in ~0.01s instead of 4+ seconds
-- ✅ **Faster timeout (10 seconds)** - Down from 30 seconds for quicker batch processing
-- ✅ **Eliminated UI lag** - Removed expensive filter operations from view rendering
-- ✅ **Smoother responsiveness** - Optimized state management and computation
+**UI Enhancements & Fixes:**
+- ✅ **Fixed disclaimer behavior** - Now shows only once on first app launch, not per tab
+- ✅ **Added info banner** - Permanent attribution and contact info in left panel
+- ✅ **File menu added** - Quick access to folder operations (Choose/Open Models Folder)
+- ✅ **Tab bar visibility** - Improved tab bar appearance on app launch
+- ✅ **Independent tabs** - Each tab has its own state and file selections
 
-**Previous Release (v2.1):**
-- Fixed critical MCMAS 1.3.0 bug causing random crashes (~30% failure rate)
+**Previous Release (v2.2):**
+- Idle CPU usage reduced from 5-15% to 0.0-0.1%
+- Verification speed increased 100x+ (4+ seconds → ~0.01s)
+- Faster timeout (10 seconds, down from 30)
+- Fixed critical MCMAS 1.3.0 bug causing random crashes
 
 ## What's Inside
 
@@ -84,9 +87,9 @@ Two files have known problems and are **unchecked by default**:
 
 ## Technical Details
 
-- Built for **Apple Silicon (M1/M2/M3)** Macs
+- Built for **Apple Silicon (M1/M2/M3/M4)** Macs
 - MCMAS version: 1.3.0 Enhanced
-- GUI version: **2.2** (Performance Optimized)
+- GUI version: **2.3** (UI Enhanced)
 - Supports: LTL, CTL, CTL*, ATL, ATLK formulas
 - GUI framework: SwiftUI (requires macOS 12.0+)
 
@@ -108,5 +111,5 @@ Two files have known problems and are **unchecked by default**:
 ## Credits
 
 - Original MCMAS: http://vas.doc.ic.ac.uk/tools/mcmas/
-- GUI Version 2.2 by Jay Kahl - Performance optimizations and bug fixes
+- GUI Version 2.3 by Jay Kahl - Performance optimizations and bug fixes
 - Enhanced for Apple Silicon with native GUI launcher

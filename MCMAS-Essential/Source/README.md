@@ -1,4 +1,4 @@
-# MCMAS Source Files
+# MCMAS Source Files (v2.3)
 
 This folder contains the source code for the MCMAS GUI application.
 
