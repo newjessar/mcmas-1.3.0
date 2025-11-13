@@ -80,6 +80,14 @@ open ../MCMAS.app
 
 **Solution**: Moved the `break` statement outside the if/else block to case level, matching the pattern in case 47. Result: 100% reliability verified with 50+ consecutive test runs.
 
+## Troubleshooting
+
+**App won't open ("damaged" error)?**
+```bash
+xattr -cr /Applications/MCMAS.app
+```
+Then right-click → Open
+
 ## License
 
 Personal and educational use only. No warranty provided. See full disclaimer in app.

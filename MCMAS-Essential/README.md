@@ -95,9 +95,11 @@ Two files have known problems and are **unchecked by default**:
 
 ## Troubleshooting
 
-**App won't open?**
-- Right-click → Open (first time only)
-- Allow unidentified developer in System Preferences
+**App won't open ("damaged" error)?**
+```bash
+xattr -cr /Applications/MCMAS.app
+```
+Then right-click → Open
 
 **Results not showing?**
 - Check Console.app for "MCMAS" process logs
