@@ -1,6 +1,6 @@
 # MCMAS - Multi-Agent Model Checker
 
-![MCMAS App Icon](MCMAS-Essential/apple_mcmas.png)
+![MCMAS GUI Screenshot](MCMAS-Essential/screenshot_v2.3.png)
 
 **Version 2.3** - Enhanced for Apple Silicon with Native macOS GUI
 
